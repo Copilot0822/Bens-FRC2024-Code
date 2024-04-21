@@ -35,7 +35,7 @@ public class NoteRstCmd extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
+  public void initialize() { //sets indexer speed and starts the timer also stops intake
     m_intake.setIntake(0);
     m_indexer.startIndexTimer();
     m_indexer.setIndexer(-Constants.indexBackOutSpeed);
@@ -45,7 +45,7 @@ public class NoteRstCmd extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
+  public void execute() { //runs until timer above threshould then indexer off and x is true so command enters isFinished
     //m_indexer.startIndexTimer();
     if(m_indexer.getIndexTimer() >= Constants.indexBackOutTime){
       x = true;

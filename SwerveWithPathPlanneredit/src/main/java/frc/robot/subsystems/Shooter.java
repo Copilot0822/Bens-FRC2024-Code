@@ -65,7 +65,7 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putNumber("Top Shooter RPM:", topEncoder.getVelocity());
     // This method will be called once per scheduler run
   }
-  public void runShooter(double speed){
+  public void runShooter(double speed){//run the shooters at inputted speed
     
     topShooter.set(speed);
     bottomShooter.set(speed);

@@ -37,11 +37,11 @@ public final class Constants {
 
   //Shoot Command vars
   public static final double shooterSpeed = 0.8;
-  public static final double shooterVariance = 100;
+  public static final double shooterVariance = 50; //rpm variance
   public static final double indexerPush = 0.8;
   public static final int afterIndexPushDelay = 750;
 
   public static class OperatorConstants {
-    public static final int kDriverControllerPort = 0;
+    //public static final int kDriverControllerPort = 0;
   }
 }

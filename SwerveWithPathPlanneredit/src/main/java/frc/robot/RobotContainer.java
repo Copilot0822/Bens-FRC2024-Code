@@ -6,6 +6,8 @@ package frc.robot;
 
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
+import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -66,9 +68,11 @@ public class RobotContainer {
   private final Telemetry logger = new Telemetry(MaxSpeed);
 
   private void configureBindings() {
-    /*new JoystickButton(drivController, 1).toggleOnTrue(new IntakeCmd(m_intake, m_indexer)); // runs the intake command on b (1) button on xbox controller
+    /* deprecated 4-20 new JoystickButton(drivController, 1).toggleOnTrue(new IntakeCmd(m_intake, m_indexer)); // runs the intake command on b (1) button on xbox controller
     new JoystickButton(drivController, 0).toggleOnTrue(new ShootCmd(m_shooter, m_indexer));
     new JoystickButton(drivController, 2).onTrue(new NoteRstCmd(m_indexer, m_intake));*/
+
+    //Ben's Commands
     joystick.rightBumper().toggleOnTrue(new IntakeCmd(m_intake, m_indexer)); //on right bumper button run intake
     joystick.rightTrigger().toggleOnTrue(new ShootCmd(m_shooter, m_indexer)); //on right trigger button shoot auto
     joystick.y().onTrue(new NoteRstCmd(m_indexer, m_intake)); // on y button back out indexer manual **do not need this normally
@@ -113,10 +117,13 @@ public class RobotContainer {
 
   public RobotContainer() {
     configureBindings();
+    NamedCommands.registerCommand("Intake", new IntakeCmd(m_intake, m_indexer));
+    NamedCommands.registerCommand("Shoot", new ShootCmd(m_shooter, m_indexer));
   }
 
   public Command getAutonomousCommand() {
     /* First put the drivetrain into auto run mode, then run the auto */
-    return runAuto;
+    //return runAuto;
+    return new PathPlannerAuto("Tests");
   }
 }

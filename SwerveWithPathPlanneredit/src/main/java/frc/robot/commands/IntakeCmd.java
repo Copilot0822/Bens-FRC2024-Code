@@ -41,7 +41,7 @@ public class IntakeCmd extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
+  public void initialize() {//sets the booleans to false
     y = false;
     x = false;
   }
