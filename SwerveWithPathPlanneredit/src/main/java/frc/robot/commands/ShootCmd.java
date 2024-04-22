@@ -42,34 +42,29 @@ public class ShootCmd extends Command {
   @Override
   public void initialize() {
     m_shooter.runShooter(Constants.shooterSpeed);
-    x = false;
-    y = false;
+    
+
+    ///m_indexer.setIndexer(0);
+    //x = false;
+    //y = false;
+    m_indexer.startIndexTimer();
     
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double v1 = m_shooter.getShooterRPM();
-    shooterStopWatch.start();
-
-    if(shooterStopWatch.getDurationMs() >= 100){
-      double v2 = m_shooter.getShooterRPM();
-
-      if(v2-v1 < Constants.shooterVariance){
-        m_indexer.setIndexer(Constants.indexerPush);
-        y = true;
-      }
-
+    m_shooter.runShooter(Constants.shooterSpeed);
+    if(m_indexer.getIndexTimer() > 700){
+      m_indexer.setIndexer(Constants.indexerPush);
 
     }
-    if(y){
-      shooterStopWatch2.start();
-      if(shooterStopWatch2.getDurationMs() > Constants.afterIndexPushDelay){
-        x = true;
-      }
 
-    }
+
+    
+    
+
+
   }
 
   // Called once the command ends or is interrupted.

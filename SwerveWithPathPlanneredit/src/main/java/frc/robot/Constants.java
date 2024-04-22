@@ -25,19 +25,19 @@ public final class Constants {
    //Motor Inverts
   public static final boolean intakeInvert = true;
   public static final boolean indexerInvert = true;
-  public static final boolean shooterTopInvert = false;
-  public static final boolean shooterBottomInvert = false;
+  public static final boolean shooterTopInvert = true;
+  public static final boolean shooterBottomInvert = true;
   
   //Intake Command vars
   public static final double intakeSpeedIn = 0.7;
-  public static final double indexSpeedIn = 0.4;
-  public static final double indexCurrentThreshould = 10;
+  public static final double indexSpeedIn = 0.5;
+  public static final double indexCurrentThreshould = 14;
   
-  public static final double indexBackOutSpeed = 0.25;
+  public static final double indexBackOutSpeed = 0.4;
   public static final int indexBackOutTime = 100;
 
   //Shoot Command vars
-  public static final double shooterSpeed = 0.8;
+  public static final double shooterSpeed = 0.5;
   public static final double shooterVariance = 50; //rpm variance
   public static final double indexerPush = 0.8;
   public static final int afterIndexPushDelay = 750;

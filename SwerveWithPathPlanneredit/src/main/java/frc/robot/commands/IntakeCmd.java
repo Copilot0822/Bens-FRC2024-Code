@@ -94,6 +94,7 @@ public class IntakeCmd extends Command {
               new2Timer.start();
               a = true;
               indexer.setIndexer(-Constants.indexBackOutSpeed);
+              shooter.runShooter(-0.1);
             }
             if(a){
               if(new2Timer.getDurationMs() > Constants.indexBackOutTime){
@@ -103,6 +104,7 @@ public class IntakeCmd extends Command {
               }
               else{
                 indexer.setIndexer(-Constants.indexBackOutSpeed);
+                shooter.runShooter(-0.1);
               }
             }
 
@@ -119,6 +121,7 @@ public class IntakeCmd extends Command {
 
     indexer.setIndexer(0);
     intake.setIntake(0);
+    shooter.runShooter(0);
   }
 
   // Returns true when the command should end.

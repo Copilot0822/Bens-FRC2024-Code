@@ -74,7 +74,7 @@ public class RobotContainer {
 
     //Ben's Commands
     joystick.rightBumper().toggleOnTrue(new IntakeCmd(m_intake, m_indexer, m_shooter)); //on right bumper button run intake
-    joystick.rightTrigger().toggleOnTrue(new ShootCmd(m_shooter, m_indexer)); //on right trigger button shoot auto
+    joystick.x().toggleOnTrue(new ShootCmd(m_shooter, m_indexer)); //on right trigger button shoot auto
     joystick.y().onTrue(new NoteRstCmd(m_indexer, m_intake)); // on y button back out indexer manual **do not need this normally
      
 
