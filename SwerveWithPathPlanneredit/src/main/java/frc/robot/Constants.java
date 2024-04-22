@@ -23,15 +23,15 @@ public final class Constants {
   public static final int rightArmId = 44;
 
    //Motor Inverts
-  public static final boolean intakeInvert = false;
-  public static final boolean indexerInvert = false;
+  public static final boolean intakeInvert = true;
+  public static final boolean indexerInvert = true;
   public static final boolean shooterTopInvert = false;
   public static final boolean shooterBottomInvert = false;
   
   //Intake Command vars
   public static final double intakeSpeedIn = 0.4;
   public static final double indexSpeedIn = 0.4;
-  public static final double indexCurrentThreshould = 2;
+  public static final double indexCurrentThreshould = 20;
   public static final double indexBackOutSpeed = 0.25;
   public static final int indexBackOutTime = 100;
 

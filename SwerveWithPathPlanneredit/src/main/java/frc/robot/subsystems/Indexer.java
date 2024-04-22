@@ -59,7 +59,7 @@ public class Indexer extends SubsystemBase {
     indexSrx.set(ControlMode.PercentOutput, speed);
   }
   public double getIndexerCurrent(){ // used to trigger backout when note has hit shooter wheels 
-    double a = indexSrx.getStatorCurrent();
+    double a = indexSrx.getSupplyCurrent();
 
     return a;
 
