@@ -20,11 +20,14 @@ public class IntakeCmd extends Command {
   private final Indexer indexer;
   private final Shooter shooter;
   private StopWatch newTimer = new StopWatch();
+  private StopWatch new2Timer = new StopWatch();
   
   
   private boolean x = false; //x is the trigger for ending the command (on true)
   private boolean y = false; //y is the backout trigger (on true)
   private boolean z = false;
+  private boolean a = false;
+  private boolean b = false;
   
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   //private final Intake Intake;
@@ -54,6 +57,8 @@ public class IntakeCmd extends Command {
     y = false;
     x = false;
     z = false;
+    a = false;
+    b = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -62,51 +67,49 @@ public class IntakeCmd extends Command {
 
     //indexer.setIndexer(Constants.indexSpeedIn);
     //intake.setIntake(Constants.intakeSpeedIn);
-    if(shooter.getShooterRPM() < 2){
-
-      if(indexer.getIndexerCurrent() > Constants.indexCurrentThreshould){ // if the current is above the threshould then output change y to true
-        //y = true;
-        newTimer.start();
-        z = true;
-        //indexer.startIndexTimer();
-
-      }
-      if(z){
-        if(newTimer.getDurationMs() < 500){
-          indexer.setIndexer(Constants.indexSpeedIn);
-        }
-        else if(newTimer.getDurationMs() > 500){
+    if(shooter.getShooterRPM() < 10){
+      if(!x){
+        intake.setIntake(Constants.intakeSpeedIn);
+        indexer.setIndexer(Constants.indexSpeedIn);
+        if(indexer.getIndexerCurrent() > Constants.indexCurrentThreshould){
+          x = true;
+          intake.setIntake(0);
           indexer.setIndexer(0);
+        }
+      }
+      else if(x){
+        if(!y){
+          newTimer.start();
+          indexer.setIndexer(Constants.indexSpeedIn);
+
           y = true;
         }
+        else if(y){
+          if(newTimer.getDurationMs() > 250){
+            indexer.setIndexer(0);
+            z = true;
+          }
+          if(z){
+            if(!a){
+              new2Timer.start();
+              a = true;
+              indexer.setIndexer(-Constants.indexBackOutSpeed);
+            }
+            if(a){
+              if(new2Timer.getDurationMs() > Constants.indexBackOutTime){
+                indexer.setIndexer(0);
+                b = true;
 
+              }
+              else{
+                indexer.setIndexer(-Constants.indexBackOutSpeed);
+              }
+            }
+
+          }          
+        }
       }
-      if(!y){ //if y false (current not yet over limit) set indexer and intake to in speed
-        indexer.setIndexer(Constants.indexSpeedIn);
-        intake.setIntake(Constants.intakeSpeedIn);
-      }
-      else if(y){ //if y is true (current trigger has been triggered) set intake speed 0 then decide off of Index timer value whether or not to turn backwards or end command
-       //indexer.setIndexer(0);
-       indexer.startIndexTimer();
-       intake.setIntake(0);
-
-
-        indexer.setIndexer(-Constants.indexBackOutSpeed);
-       //indexer.startIndexTimer();
-
-        if(indexer.getIndexTimer() > Constants.indexBackOutTime){
-
-          indexer.setIndexer(0);
-          x = true;
-
-       }
-       //else{
-         //indexer.setIndexer(Constants.indexBackOutSpeed);
-       //}
-
-
-      }
-  }
+    }
 
   }
 
@@ -129,6 +132,6 @@ public class IntakeCmd extends Command {
     }*/
 
 
-    return x;
+    return b;
   }
 }

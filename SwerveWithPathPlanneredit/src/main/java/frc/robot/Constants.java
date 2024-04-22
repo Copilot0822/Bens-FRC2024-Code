@@ -29,12 +29,12 @@ public final class Constants {
   public static final boolean shooterBottomInvert = false;
   
   //Intake Command vars
-  public static final double intakeSpeedIn = 0.4;
+  public static final double intakeSpeedIn = 0.7;
   public static final double indexSpeedIn = 0.4;
   public static final double indexCurrentThreshould = 10;
-  ;
+  
   public static final double indexBackOutSpeed = 0.25;
-  public static final int indexBackOutTime = 200;
+  public static final int indexBackOutTime = 100;
 
   //Shoot Command vars
   public static final double shooterSpeed = 0.8;
