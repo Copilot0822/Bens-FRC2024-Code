@@ -8,12 +8,14 @@ import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.Shooter;
 import frc.robot.Constants;
 
 /** An example command that uses an example subsystem. */
 public class IntakeCmd extends Command {
   private final Intake intake;
   private final Indexer indexer;
+  private final Shooter shooter;
   
   
   private boolean x = false; //x is the trigger for ending the command (on true)
@@ -28,14 +30,16 @@ public class IntakeCmd extends Command {
    * @param subsystem
    * the subsystem used by this command.
    */
-  public IntakeCmd(Intake intake, Indexer indexer) {
+  public IntakeCmd(Intake intake, Indexer indexer, Shooter shooter) {
     this.indexer = indexer;
     this.intake = intake;
+    this.shooter = shooter;
 
     //m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intake);
     addRequirements(indexer);
+    addRequirements(shooter);
     //addRequirements();
   }
 
@@ -52,35 +56,37 @@ public class IntakeCmd extends Command {
 
     //indexer.setIndexer(Constants.indexSpeedIn);
     //intake.setIntake(Constants.intakeSpeedIn);
+    if(shooter.getShooterRPM() < 2){
 
-    if(indexer.getIndexerCurrent() > Constants.indexCurrentThreshould){ // if the current is above the threshould then output change y to true
-      y = true;
-      indexer.startIndexTimer();
-
-    }
-    if(!y){ //if y false (current not yet over limit) set indexer and intake to in speed
-      indexer.setIndexer(Constants.indexSpeedIn);
-      intake.setIntake(Constants.intakeSpeedIn);
-    }
-    else if(y){ //if y is true (current trigger has been triggered) set intake speed 0 then decide off of Index timer value whether or not to turn backwards or end command
-      //indexer.setIndexer(0);
-      intake.setIntake(0);
-
-
-      indexer.setIndexer(-Constants.indexBackOutSpeed);
-      //indexer.startIndexTimer();
-
-      if(indexer.getIndexTimer() > Constants.indexBackOutTime){
-        indexer.setIndexer(0);
-        x = true;
+      if(indexer.getIndexerCurrent() > Constants.indexCurrentThreshould){ // if the current is above the threshould then output change y to true
+        y = true;
+        indexer.startIndexTimer();
 
       }
-      //else{
-        //indexer.setIndexer(Constants.indexBackOutSpeed);
-      //}
+      if(!y){ //if y false (current not yet over limit) set indexer and intake to in speed
+        indexer.setIndexer(Constants.indexSpeedIn);
+        intake.setIntake(Constants.intakeSpeedIn);
+      }
+      else if(y){ //if y is true (current trigger has been triggered) set intake speed 0 then decide off of Index timer value whether or not to turn backwards or end command
+       //indexer.setIndexer(0);
+       intake.setIntake(0);
 
 
-    }
+        indexer.setIndexer(-Constants.indexBackOutSpeed);
+       //indexer.startIndexTimer();
+
+        if(indexer.getIndexTimer() > Constants.indexBackOutTime){
+          indexer.setIndexer(0);
+          x = true;
+
+       }
+       //else{
+         //indexer.setIndexer(Constants.indexBackOutSpeed);
+       //}
+
+
+      }
+  }
 
   }
 
