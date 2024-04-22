@@ -5,6 +5,9 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.ExampleSubsystem;
+
+import com.ctre.phoenix.time.StopWatch;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Indexer;
@@ -16,10 +19,12 @@ public class IntakeCmd extends Command {
   private final Intake intake;
   private final Indexer indexer;
   private final Shooter shooter;
+  private StopWatch newTimer = new StopWatch();
   
   
   private boolean x = false; //x is the trigger for ending the command (on true)
   private boolean y = false; //y is the backout trigger (on true)
+  private boolean z = false;
   
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   //private final Intake Intake;
@@ -48,6 +53,7 @@ public class IntakeCmd extends Command {
   public void initialize() {//sets the booleans to false
     y = false;
     x = false;
+    z = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -59,8 +65,20 @@ public class IntakeCmd extends Command {
     if(shooter.getShooterRPM() < 2){
 
       if(indexer.getIndexerCurrent() > Constants.indexCurrentThreshould){ // if the current is above the threshould then output change y to true
-        y = true;
-        indexer.startIndexTimer();
+        //y = true;
+        newTimer.start();
+        z = true;
+        //indexer.startIndexTimer();
+
+      }
+      if(z){
+        if(newTimer.getDurationMs() < 500){
+          indexer.setIndexer(Constants.indexSpeedIn);
+        }
+        else if(newTimer.getDurationMs() > 500){
+          indexer.setIndexer(0);
+          y = true;
+        }
 
       }
       if(!y){ //if y false (current not yet over limit) set indexer and intake to in speed
@@ -69,6 +87,7 @@ public class IntakeCmd extends Command {
       }
       else if(y){ //if y is true (current trigger has been triggered) set intake speed 0 then decide off of Index timer value whether or not to turn backwards or end command
        //indexer.setIndexer(0);
+       indexer.startIndexTimer();
        intake.setIntake(0);
 
 
@@ -76,6 +95,7 @@ public class IntakeCmd extends Command {
        //indexer.startIndexTimer();
 
         if(indexer.getIndexTimer() > Constants.indexBackOutTime){
+
           indexer.setIndexer(0);
           x = true;
 
