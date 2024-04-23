@@ -12,6 +12,7 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
@@ -78,8 +79,8 @@ public class RobotContainer {
     joystick.rightBumper().toggleOnTrue(new IntakeCmd(m_intake, m_indexer, m_shooter)); //on right bumper button run intake
     joystick.x().toggleOnTrue(new ShootCmd(m_shooter, m_indexer)); //on right trigger button shoot auto
     joystick.y().onTrue(new NoteRstCmd(m_indexer, m_intake)); // on y button back out indexer manual **do not need this normally
-    joystick.leftTrigger(0.75).toggleOnTrue(new ShooterSpoolCmd(m_shooter));
-    joystick.rightTrigger(0.75).toggleOnTrue(new ReleaseCmd(m_indexer, m_shooter));
+    joystick.leftTrigger().toggleOnTrue(new ShooterSpoolCmd(m_shooter));
+    joystick.rightTrigger(0.75).toggleOnTrue(new ReleaseCmd(m_indexer));
      
 
 
@@ -123,6 +124,7 @@ public class RobotContainer {
     configureBindings();
     NamedCommands.registerCommand("Intake", new IntakeCmd(m_intake, m_indexer, m_shooter));
     NamedCommands.registerCommand("Shoot", new ShootCmd(m_shooter, m_indexer));
+    NamedCommands.registerCommand("wait", new WaitCommand(0.7));
   }
 
   public Command getAutonomousCommand() {

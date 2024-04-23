@@ -17,7 +17,7 @@ public class ReleaseCmd extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   //private final ExampleSubsystem m_subsystem;
   private final Indexer m_indexer;
-  private final Shooter m_shooter;
+  //private final Shooter m_shooter;
   private final XboxController m_controller = new XboxController(0);
 
   /**
@@ -25,20 +25,22 @@ public class ReleaseCmd extends Command {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ReleaseCmd(Indexer m_indexer, Shooter m_shooter) {
+  public ReleaseCmd(Indexer m_indexer) {
     this.m_indexer = m_indexer;
-    this.m_shooter = m_shooter;
+    //this.m_shooter = m_shooter;
     //m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_indexer);
+    //addRequirements(m_shooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(m_shooter.getShooterRPM() > Constants.shooterRPMLim){
+    //if(m_shooter.getShooterRPM() > Constants.shooterRPMLim){
       m_indexer.setIndexer(Constants.indexerPush);
-    }
+      //m_shooter.runShooter(Constants.shooterSpeed);
+    //}
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -49,12 +51,13 @@ public class ReleaseCmd extends Command {
   @Override
   public void end(boolean interrupted) {
     m_indexer.setIndexer(0);
+    //m_shooter.runShooter(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(m_shooter.getShooterRPM() > Constants.shooterRPMLim){
+    //if(m_shooter.getShooterRPM() > Constants.shooterRPMLim){
 
       if(m_controller.getLeftTriggerAxis() > 0.5){
          return true;
@@ -62,9 +65,9 @@ public class ReleaseCmd extends Command {
       else{
         return false;
       }
-    }
-    else{
-      return true;
-    }
-  }
-}
+    //}
+    //else{
+      //return true;
+    }}
+  //}
+//}

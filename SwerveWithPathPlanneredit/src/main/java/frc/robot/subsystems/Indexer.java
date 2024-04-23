@@ -18,6 +18,8 @@ public class Indexer extends SubsystemBase {
   //private final TalonSRX intakeSrx = new TalonSRX(30);
   private final TalonSRX indexSrx = new TalonSRX(Constants.indexerId);
   public final StopWatch indexStopWatch = new StopWatch();
+  public final StopWatch indexStopWatch2 = new StopWatch();
+  
   
 
   public Indexer() {
@@ -69,6 +71,12 @@ public class Indexer extends SubsystemBase {
   }
   public int getIndexTimer(){ // used in backout indexer command
     return indexStopWatch.getDurationMs();
+  }
+  public void startIndex2Timer(){
+    indexStopWatch2.start();
+  }
+  public int getIndex2Timer(){
+    return indexStopWatch2.getDurationMs();
   }
 
   

@@ -8,6 +8,7 @@ import frc.robot.Constants;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Indexer;
+//import java.util.timer;
 
 import com.ctre.phoenix.time.StopWatch;
 
@@ -23,6 +24,7 @@ public class ShootCmd extends Command {
   private boolean y;
   public StopWatch shooterStopWatch;
   public StopWatch shooterStopWatch2;
+  public StopWatch shooterWatch = new StopWatch();
 
   /**
    * Creates a new ExampleCommand.
@@ -42,11 +44,12 @@ public class ShootCmd extends Command {
   @Override
   public void initialize() {
     m_shooter.runShooter(Constants.shooterSpeed);
+    m_indexer.startIndex2Timer();
     
 
     ///m_indexer.setIndexer(0);
-    //x = false;
-    //y = false;
+    x = false;
+    y = false;
     m_indexer.startIndexTimer();
     
   }
@@ -57,7 +60,12 @@ public class ShootCmd extends Command {
     m_shooter.runShooter(Constants.shooterSpeed);
     if(m_indexer.getIndexTimer() > 700){
       m_indexer.setIndexer(Constants.indexerPush);
+      //m_indexer.startIndex2Timer();
+      y = true;
 
+    }
+    if(m_indexer.getIndex2Timer() > 3000){
+      x = true;
     }
 
 
