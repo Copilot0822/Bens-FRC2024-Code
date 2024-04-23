@@ -41,7 +41,7 @@ public class ShooterSpoolCmd extends Command {
   @Override
   public void execute() {
     m_shooter.runShooter(Constants.shooterSpeed);
-    if(m_shooter.getShooterRPM() > 5400){
+    if(m_shooter.getShooterRPM() > 5200){
       m_controller.setRumble(RumbleType.kRightRumble, 1.0);
     }
     else{
