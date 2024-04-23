@@ -44,6 +44,15 @@ public final class Constants {
   public static final int afterIndexPushDelay = 750;
   public static final int shooterRPMLim = 5000;
 
+
+  //arm constants
+  public static final boolean armInvert = false;
+  public static final boolean oppositeInvert = true;
+  public static final double armConversionFactor = 165.6;
+  public static final int armUpstopPort = 2;
+  public static final int armDownstopPort = 3;
+  public static final double armEndStopPos = 90;//in degrees
+
   public static class OperatorConstants {
     //public static final int kDriverControllerPort = 0;
   }
