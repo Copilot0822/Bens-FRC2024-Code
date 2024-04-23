@@ -59,6 +59,9 @@ public class IntakeCmd extends Command {
     z = false;
     a = false;
     b = false;
+    indexer.setIndexer(Constants.indexSpeedIn);
+    indexer.startIndex3Timer();
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -67,23 +70,27 @@ public class IntakeCmd extends Command {
 
     //indexer.setIndexer(Constants.indexSpeedIn);
     //intake.setIntake(Constants.intakeSpeedIn);
-    if(shooter.getShooterRPM() < 10){
-      if(!x){
-        intake.setIntake(Constants.intakeSpeedIn);
-        indexer.setIndexer(Constants.indexSpeedIn);
-        if(indexer.getIndexerCurrent() > Constants.indexCurrentThreshould){
-          x = true;
-          intake.setIntake(0);
-          indexer.setIndexer(0);
-        }
-      }
-      else if(x){
-        if(!y){
-          newTimer.start();
-          indexer.setIndexer(Constants.indexSpeedIn);
 
-          y = true;
+
+    if(indexer.getIndex3Timer() > Constants.indexCurrentDelay){
+
+      if(shooter.getShooterRPM() < 10){
+        if(!x){
+         intake.setIntake(Constants.intakeSpeedIn);
+         indexer.setIndexer(Constants.indexSpeedIn);
+         if(indexer.getIndexerCurrent() > Constants.indexCurrentThreshould){
+            x = true;
+            intake.setIntake(0);
+            indexer.setIndexer(0);
+         }
         }
+        else if(x){
+           if(!y){
+            newTimer.start();
+            indexer.setIndexer(Constants.indexSpeedIn);
+
+            y = true;
+           }
         else if(y){
           if(newTimer.getDurationMs() > 250){
             indexer.setIndexer(0);
@@ -112,6 +119,7 @@ public class IntakeCmd extends Command {
         }
       }
     }
+  }
 
   }
 

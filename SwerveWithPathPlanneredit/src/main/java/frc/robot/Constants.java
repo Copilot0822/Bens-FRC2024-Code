@@ -32,6 +32,7 @@ public final class Constants {
   public static final double intakeSpeedIn = 0.7;
   public static final double indexSpeedIn = 0.5;
   public static final double indexCurrentThreshould = 14;
+  public static final int indexCurrentDelay = 400;
   
   public static final double indexBackOutSpeed = 0.4;
   public static final int indexBackOutTime = 100;
