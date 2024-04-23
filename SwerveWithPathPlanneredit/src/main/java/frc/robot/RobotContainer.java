@@ -25,7 +25,9 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.Constants;
 import frc.robot.commands.IntakeCmd;
 import frc.robot.commands.NoteRstCmd;
+import frc.robot.commands.ReleaseCmd;
 import frc.robot.commands.ShootCmd;
+import frc.robot.commands.ShooterSpoolCmd;
 
 
 
@@ -76,6 +78,8 @@ public class RobotContainer {
     joystick.rightBumper().toggleOnTrue(new IntakeCmd(m_intake, m_indexer, m_shooter)); //on right bumper button run intake
     joystick.x().toggleOnTrue(new ShootCmd(m_shooter, m_indexer)); //on right trigger button shoot auto
     joystick.y().onTrue(new NoteRstCmd(m_indexer, m_intake)); // on y button back out indexer manual **do not need this normally
+    joystick.leftTrigger(0.75).toggleOnTrue(new ShooterSpoolCmd(m_shooter));
+    joystick.rightTrigger(0.75).toggleOnTrue(new ReleaseCmd(m_indexer, m_shooter));
      
 
 
