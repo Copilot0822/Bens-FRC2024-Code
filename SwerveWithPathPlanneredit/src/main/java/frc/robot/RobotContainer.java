@@ -22,6 +22,7 @@ import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Arm;
 //mine:
 import frc.robot.Constants;
 import frc.robot.commands.IntakeCmd;
@@ -39,6 +40,7 @@ public class RobotContainer {
   private final Indexer m_indexer = new Indexer();
   private final Intake m_intake = new Intake();
   private final Shooter m_shooter = new Shooter();
+  private final Arm m_arm = new Arm();
 
 
 

@@ -92,24 +92,32 @@ public class Arm extends SubsystemBase {
     }
     if(leftEncoder.getPosition() < position){
       p = (position-leftEncoder.getPosition())*Constants.armSlopeValue;
-      if(p > 0.3){
+
+      //p = Math.sin(Math.toDegrees(p));
+
+
+
+
+      /*if(p > 0.3){
         leftSparkMax.set(0.3);
       }
       else{
         leftSparkMax.set(p);
-      }
+      }*/
 
       //leftSparkMax.set(position-leftEncoder.getPosition()*Constants.armSlopeValue);
     }
-    else{
-      leftSparkMax.set(0);
-    }
+
+    //else{
+    //  leftSparkMax.set(0);
+    //}
     
 
 
     
     // This method will be called once per scheduler run
-  }
+    
+}
   
 
 
