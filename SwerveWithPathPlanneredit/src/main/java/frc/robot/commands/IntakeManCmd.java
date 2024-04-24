@@ -6,54 +6,45 @@ package frc.robot.commands;
 
 import frc.robot.Constants;
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.Shooter;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Indexer;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class ShooterSpoolCmd extends Command {
+public class IntakeManCmd extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   //private final ExampleSubsystem m_subsystem;
-  private final Shooter m_shooter;
-  private final XboxController m_controller = new XboxController(0);
+  private final Intake m_intake;
+  private final Indexer m_indexer;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ShooterSpoolCmd(Shooter m_shooter) {
-    this.m_shooter = m_shooter;
-    
+  public IntakeManCmd(Intake m_intake, Indexer m_indexer) {
+    //m_subsystem = subsystem;
+    this.m_intake = m_intake;
+    this.m_indexer = m_indexer;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_shooter);
+    addRequirements(m_intake);
+    addRequirements(m_indexer);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_shooter.runShooter(Constants.shooterSpeed);
-    //m_controller.setRumble(RumbleType.kBothRumble, 1);
+    m_intake.setIntake(Constants.intakeSpeedIn);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    m_shooter.runShooter(Constants.shooterSpeed);
-    if(m_shooter.getShooterRPM() > 5200){
-      m_controller.setRumble(RumbleType.kRightRumble, 1.0);
-    }
-    else{
-      m_controller.setRumble(RumbleType.kRightRumble, 0);
-    }
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_shooter.runShooter(0);
-    m_controller.setRumble(RumbleType.kRightRumble, 0);
+
   }
 
   // Returns true when the command should end.

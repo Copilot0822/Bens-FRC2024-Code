@@ -31,8 +31,8 @@ public class Shooter extends SubsystemBase {
   public Shooter() {
     topShooter.setInverted(Constants.shooterTopInvert);
     bottomShooter.setInverted(Constants.shooterBottomInvert);
-    topEncoder.setVelocityConversionFactor(42);
-    bottomEncoder.setVelocityConversionFactor(42);
+    topEncoder.setVelocityConversionFactor(1);
+    bottomEncoder.setVelocityConversionFactor(1);
   }
 
   /**
