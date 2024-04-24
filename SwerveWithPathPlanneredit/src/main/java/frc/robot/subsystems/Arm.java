@@ -12,6 +12,7 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -27,6 +28,8 @@ public class Arm extends SubsystemBase {
 
   private final DigitalInput upStop = new DigitalInput(Constants.armUpstopPort);
   private final DigitalInput downStop = new DigitalInput(Constants.armDownstopPort);
+  private double position = 0;
+  private double p;
   
 
   
@@ -73,9 +76,46 @@ public class Arm extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putBoolean("Arm Down Limit", downStop.get());
+    SmartDashboard.putBoolean("Arm Up Limit", upStop.get());
+    SmartDashboard.putNumber("Arm Encoder", leftEncoder.getPosition());
+    SmartDashboard.putNumber("Arm Command", leftSparkMax.getAppliedOutput()); 
+    
+    
+
+
+    if(downStop.get() == true){
+      leftEncoder.setPosition(0);
+    }
+    else if(upStop.get() == true){
+      leftEncoder.setPosition(Constants.armEndStopPos);
+    }
+    if(leftEncoder.getPosition() < position){
+      p = (position-leftEncoder.getPosition())*Constants.armSlopeValue;
+      if(p > 0.3){
+        leftSparkMax.set(0.3);
+      }
+      else{
+        leftSparkMax.set(p);
+      }
+
+      //leftSparkMax.set(position-leftEncoder.getPosition()*Constants.armSlopeValue);
+    }
+    else{
+      leftSparkMax.set(0);
+    }
+    
+
+
     
     // This method will be called once per scheduler run
   }
+  
+
+
+
+
+
   public void runArm(double speed){
     leftSparkMax.set(speed);
 
@@ -94,6 +134,11 @@ public class Arm extends SubsystemBase {
   }
   public void topStopZero(){
     leftEncoder.setPosition(Constants.armEndStopPos);
+  }
+
+  public void setArmPosi(double posi){
+    position = posi;
+
   }
 
 

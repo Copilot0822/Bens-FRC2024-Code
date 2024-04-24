@@ -49,6 +49,7 @@ public class ArmMoveCmd extends Command {
     else{
       position = m_arm.getArmDegrees();
     }
+    
      
   }
 

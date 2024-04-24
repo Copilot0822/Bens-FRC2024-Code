@@ -52,6 +52,7 @@ public final class Constants {
   public static final int armUpstopPort = 2;
   public static final int armDownstopPort = 3;
   public static final double armEndStopPos = 90;//in degrees
+  public static final double armSlopeValue = 1/32;
 
   public static class OperatorConstants {
     //public static final int kDriverControllerPort = 0;
